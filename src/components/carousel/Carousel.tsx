@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useRef } from "react";
 import {
   BsFillArrowLeftCircleFill,
@@ -6,19 +7,33 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
-
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import PosterFallback from "../../assets/no-poster.png";
-
 import "./style.scss";
 import Img from "../lazyLoad/Img";
+import CircleRating from "../circleRating/CirlcleRating";
 
-const Carousel = ({ data, loading }: any) => {
+interface ICarousel {
+  data: any;
+  loading: any;
+}
+
+const Carousel: FC<ICarousel> = ({ data, loading }) => {
   const carouselContainer = useRef();
   const { url } = useSelector((state: any) => state.home);
   const navigate = useNavigate();
 
-  const navigation = (dir: any) => {};
+  const navigation = (dir: any) => {
+    const container = carouselContainer.current;
+    const scrollAmount =
+      dir === "left"
+        ? container.scrollLeft - (container.offsetWidth + 20)
+        : container.scrollLeft + (container.offsetWidth + 20);
+    container.scrollTo({
+      left: scrollAmount,
+      behavior: "smooth",
+    });
+  };
   const skItem = () => {
     return (
       <div className="skeletonItem">
@@ -43,15 +58,20 @@ const Carousel = ({ data, loading }: any) => {
           onClick={() => navigation("right")}
         />
         {!loading ? (
-          <div className="carouselItems">
+          <div className="carouselItems" ref={carouselContainer}>
             {data?.map((item: any) => {
               const posterUrl = item.poster_path
                 ? url.poster + item.poster_path
                 : PosterFallback;
               return (
-                <div key={item.id} className="carouselItem">
+                <div
+                  key={item.id}
+                  className="carouselItem"
+                  onClick={() => navigate(`${item?.media_type}/${item?.id}`)}
+                >
                   <div className="posterBlock">
                     <Img src={posterUrl} />
+                    <CircleRating rating={item?.vote_average} />
                   </div>
                   <div className="textBlock">
                     <span className="title">{item?.title}</span>
