@@ -19,7 +19,7 @@ interface ICarousel {
 }
 
 const Carousel: FC<ICarousel> = ({ data, loading }) => {
-  const carouselContainer = useRef();
+  const carouselContainer = useRef<any>();
   const { url } = useSelector((state: any) => state.home);
   const navigate = useNavigate();
 
