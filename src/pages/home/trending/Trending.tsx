@@ -1,14 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
-import SwitchTabs from "../../../components/switchTabs/SwitchTabs";
+import useFetch from "../../../hooks/useFetch";
+import Carousel from "../../../components/carousel/Carousel";
 
 const Trending = () => {
-  const onTabChange = (tab:any) => {};
+  const [trendingMovies, setTrendingMovies] = useState<any>("day");
+  const { data, loading } = useFetch(`trending/movie/${trendingMovies}
+  `);
   return (
     <div className="carouselSection">
       <ContentWrapper>
-        <span className="carouselTitle">This is Trending</span>
-        <SwitchTabs data={["Day", "Week"]} onTabChange={onTabChange} />
+        <span className="carouselTitle">Trending Movies</span>
       </ContentWrapper>
+      <Carousel data={data?.results} loading={loading} />
     </div>
   );
 };

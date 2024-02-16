@@ -5,8 +5,8 @@ import Trending from "./trending/Trending";
 const Home = () => {
   return (
     <div>
-      <HeroBanner/>
-      <Trending/>
+      <HeroBanner />
+      <Trending />
     </div>
   );
 };
