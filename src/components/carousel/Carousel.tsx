@@ -16,9 +16,10 @@ import CircleRating from "../circleRating/CirlcleRating";
 interface ICarousel {
   data: any;
   loading: any;
+  title: string;
 }
 
-const Carousel: FC<ICarousel> = ({ data, loading }) => {
+const Carousel: FC<ICarousel> = ({ data, loading, title }) => {
   const carouselContainer = useRef<any>();
   const { url } = useSelector((state: any) => state.home);
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ const Carousel: FC<ICarousel> = ({ data, loading }) => {
   return (
     <div className="carousel">
       <ContentWrapper>
+        {title && <div className="carouselTitle">{title}</div>}
         <BsFillArrowLeftCircleFill
           className="carouselLeftNav arrow"
           onClick={() => navigation("left")}

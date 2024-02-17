@@ -14,13 +14,14 @@ import Movies from "./pages/movies/Movies";
 
 function App() {
   const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { url } = useSelector((state: any) => state.home);
   useEffect(() => {
     fetchApiConfig();
   }, []);
   const fetchApiConfig = async () => {
     const res = await getData("configuration");
-    console.log("Movie Data =>", res);
+
     const url = {
       backdrop: res?.images?.secure_base_url + "original",
       poster: res?.images?.secure_base_url + "original",
@@ -32,9 +33,9 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/:movies/:id" element={<Details />} />
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Movies />} />
+        <Route path="/movie/:id" element={<Details />} />
         <Route path="/search/:query" element={<SearchList />} />
         <Route path="*" element={<PageNotFoud />} />
       </Routes>
