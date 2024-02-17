@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getData } from "./utils/api";
 import { useSelector, useDispatch } from "react-redux";
 import { getApiConfiguration } from "./store/homeSlice";
@@ -21,7 +21,6 @@ function App() {
   }, []);
   const fetchApiConfig = async () => {
     const res = await getData("configuration");
-
     const url = {
       backdrop: res?.images?.secure_base_url + "original",
       poster: res?.images?.secure_base_url + "original",
@@ -34,7 +33,8 @@ function App() {
       <Header />
       <Routes>
         {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/" element={<Movies />} />
+        <Route path="/" element={<Navigate to="/movies" />} />
+        <Route path="/movies" element={<Movies />} />
         <Route path="/movie/:id" element={<Details />} />
         <Route path="/search/:query" element={<SearchList />} />
         <Route path="*" element={<PageNotFoud />} />

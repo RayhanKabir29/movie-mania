@@ -4,7 +4,7 @@ import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
@@ -69,7 +69,7 @@ const Carousel: FC<ICarousel> = ({ data, loading, title }) => {
                 <div
                   key={item.id}
                   className="carouselItem"
-                  onClick={() => navigate(`${item?.media_type}/${item?.id}`)}
+                  onClick={() => navigate(`/movie/${item?.id}`)}
                 >
                   <div className="posterBlock">
                     <Img src={posterUrl} />

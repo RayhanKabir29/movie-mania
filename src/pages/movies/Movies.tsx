@@ -17,7 +17,6 @@ const Movies = () => {
   const fetchInitialData = () => {
     setLoading(true);
     getData(`discover/movie`, mediaType).then((res: any) => {
-      console.log(" =>", res);
       setData(res);
       setPageNum((prev) => prev + 1);
       setLoading(false);

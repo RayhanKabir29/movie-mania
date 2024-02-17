@@ -14,7 +14,7 @@ const DetailsBanner = ({ crew }: any) => {
   const { id } = useParams<any>();
   const { data, loading } = useFetch(`movie/${id}`);
   const { url } = useSelector((state: any) => state.home);
-  console.log("Crew Data =>", crew);
+
   //   const toHoursAndMinutes = (totalMinutes) => {
   //     const hours = Math.floor(totalMinutes / 60);
   //     const minutes = totalMinutes % 60;

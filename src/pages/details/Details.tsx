@@ -7,7 +7,6 @@ import Similar from "./Similar";
 
 const Details = () => {
   const { id } = useParams<any>();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: credits, loading } = useFetch(`movie/${id}/credits`);
   return (
     <div>
