@@ -6,8 +6,9 @@ import "./style.scss";
 import Img from "../lazyLoad/Img";
 import CircleRating from "../circleRating/CirlcleRating";
 import { addMovieToWatchList } from "../../store/movieWatchListSlice";
+import { AiFillPlusCircle } from "react-icons/ai";
 
-const MovieCard = ({ data,movie }: any) => {
+const MovieCard = ({ data }: any) => {
   const dispatch = useDispatch();
   const { url } = useSelector((state: any) => state.home);
   const navigate = useNavigate();
@@ -31,9 +32,9 @@ const MovieCard = ({ data,movie }: any) => {
       <span>
         <button
           className="watch-list"
-          onClick={() => dispatch(addMovieToWatchList(movie))}
+          onClick={() => dispatch(addMovieToWatchList(data))}
         >
-          Watch List
+          <AiFillPlusCircle />
         </button>
       </span>
     </>
