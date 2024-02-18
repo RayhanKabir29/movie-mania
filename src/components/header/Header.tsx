@@ -20,10 +20,10 @@ const Header = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-  const handleNavigation = () => {
-    navigate("/watchlist");
-    setMobileMenu(false);
-  };
+  // const handleNavigation = () => {
+  //   navigate("/watchlist");
+  //   setMobileMenu(false);
+  // };
 
   const openSearch = () => {
     setMobileMenu(false);
