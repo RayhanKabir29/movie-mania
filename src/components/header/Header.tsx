@@ -68,9 +68,10 @@ const Header = () => {
           </Link>
         </div>
         <ul className="menuItems">
-          <li className="menuItem" onClick={handleNavigation}>
-            Watch List
-          </li>
+          <Link to="/watchlist">
+            {" "}
+            <li className="menuItem">Watch List</li>
+          </Link>
         </ul>
         <div className="mobileMenuItems">
           <HiOutlineSearch onClick={openSearch} />
