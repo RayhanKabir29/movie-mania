@@ -1,5 +1,6 @@
 @import "../../mixins.scss";
 .movieCard {
+  position: relative;
   width: calc(50% - 5px);
   margin-bottom: 25px;
   cursor: pointer;
@@ -82,7 +83,12 @@
       opacity: 0.5;
     }
   }
-}
-.watch-list {
-  cursor: pointer;
+  .watchButton {
+    position: absolute;
+    bottom: 25px;
+    right: 0px;
+  }
+  .watchList {
+    cursor: pointer;
+  }
 }

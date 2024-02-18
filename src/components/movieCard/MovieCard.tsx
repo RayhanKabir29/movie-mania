@@ -17,26 +17,32 @@ const MovieCard = ({ data }: any) => {
     : PosterFallback;
   return (
     <>
-      <div className="movieCard" onClick={() => navigate(`/movie/${data?.id}`)}>
-        <div className="posterBlock">
+      <div className="movieCard">
+        <div
+          className="posterBlock"
+          onClick={() => navigate(`/movie/${data?.id}`)}
+        >
           <Img className="posterImg" src={posterUrl} />
           <CircleRating rating={data.vote_average.toFixed(1)} />
         </div>
-        <div className="textBlock">
+        <div
+          className="textBlock"
+          onClick={() => navigate(`/movie/${data?.id}`)}
+        >
           <span className="title">{data.title || data.name}</span>
           <span className="date">
             {dayjs(data.release_date).format("MMM D, YYYY")}
           </span>
         </div>
+        <span className="watchButton">
+          <button
+            className="watchList"
+            onClick={() => dispatch(addMovieToWatchList(data))}
+          >
+            <AiFillPlusCircle />
+          </button>
+        </span>
       </div>
-      <span>
-        <button
-          className="watch-list"
-          onClick={() => dispatch(addMovieToWatchList(data))}
-        >
-          <AiFillPlusCircle />
-        </button>
-      </span>
     </>
   );
 };
