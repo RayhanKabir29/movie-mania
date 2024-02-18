@@ -1,7 +1,6 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import "./style.scss";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import { getData } from "../../utils/api";
@@ -12,11 +11,10 @@ const Movies = () => {
   const [data, setData] = useState<any>(null);
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(false);
-  const { mediaType } = useParams();
 
   const fetchInitialData = () => {
     setLoading(true);
-    getData(`discover/movie`, mediaType).then((res: any) => {
+    getData(`discover/movie`).then((res: any) => {
       setData(res);
       setPageNum((prev) => prev + 1);
       setLoading(false);
@@ -60,9 +58,7 @@ const Movies = () => {
               >
                 {data?.results?.map((item: any, index: any) => {
                   if (item.media_type === "person") return;
-                  return (
-                    <MovieCard key={index} data={item} mediaType={mediaType} />
-                  );
+                  return <MovieCard key={index} data={item} />;
                 })}
               </InfiniteScroll>
             ) : (

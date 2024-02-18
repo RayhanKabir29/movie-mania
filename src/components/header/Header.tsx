@@ -21,9 +21,10 @@ const Header = () => {
     window.scrollTo(0, 0);
   }, [location]);
   const handleNavigation = () => {
-    navigate("/movies");
+    navigate("/watchlist");
     setMobileMenu(false);
   };
+
   const openSearch = () => {
     setMobileMenu(false);
     setShowSearch(true);
@@ -68,12 +69,8 @@ const Header = () => {
         </div>
         <ul className="menuItems">
           <li className="menuItem" onClick={handleNavigation}>
-            Movies
+            Watch List
           </li>
-          <li className="menuItem">Watch List</li>
-          {/* <li className="menuItem">
-            <HiOutlineSearch onClick={openSearch}/>
-          </li> */}
         </ul>
         <div className="mobileMenuItems">
           <HiOutlineSearch onClick={openSearch} />

@@ -6,11 +6,12 @@ import { getApiConfiguration } from "./store/homeSlice";
 
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import Home from "./pages/home/Home";
+// import Home from "./pages/home/Home";
 import Details from "./pages/details/Details";
 import SearchList from "./pages/search-result/SearchList";
 import PageNotFoud from "./pages/404/PageNotFoud";
 import Movies from "./pages/movies/Movies";
+import WatchList from "./pages/watch-list/WatchList";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/" element={<Navigate to="/movies" />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movie/:id" element={<Details />} />
+        <Route path="/watchlist" element={<WatchList />} />
         <Route path="/search/:query" element={<SearchList />} />
         <Route path="*" element={<PageNotFoud />} />
       </Routes>
