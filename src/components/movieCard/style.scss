@@ -85,10 +85,10 @@
   }
   .watchButton {
     position: absolute;
+    left: 180px;
     bottom: 25px;
-    right: 0px;
-  }
-  .watchList {
-    cursor: pointer;
+    .watchList {
+      cursor: pointer;
+    }
   }
 }
