@@ -12,8 +12,8 @@ const MovieCard = ({ data }: any) => {
   const dispatch = useDispatch();
   const { url } = useSelector((state: any) => state.home);
   const navigate = useNavigate();
-  const posterUrl = data.poster_path
-    ? url.poster + data.poster_path
+  const posterUrl = data?.poster_path
+    ? url.poster + data?.poster_path
     : PosterFallback;
   return (
     <>
@@ -23,15 +23,15 @@ const MovieCard = ({ data }: any) => {
           onClick={() => navigate(`/movie/${data?.id}`)}
         >
           <Img className="posterImg" src={posterUrl} />
-          <CircleRating rating={data.vote_average.toFixed(1)} />
+          <CircleRating rating={data?.vote_average?.toFixed(1)} />
         </div>
         <div
           className="textBlock"
           onClick={() => navigate(`/movie/${data?.id}`)}
         >
-          <span className="title">{data.title || data.name}</span>
+          <span className="title">{data.title}</span>
           <span className="date">
-            {dayjs(data.release_date).format("MMM D, YYYY")}
+            {dayjs(data?.release_date).format("MMM D, YYYY")}
           </span>
         </div>
         <span className="watchButton">
