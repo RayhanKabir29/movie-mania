@@ -1,13 +1,18 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import "./style.scss";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import { getData } from "../../utils/api";
 import Spinner from "../../components/spinner/Spinner";
 import MovieCard from "../../components/movieCard/MovieCard";
+import { addMovieToWatchList } from "../../store/movieWatchListSlice";
+import { AiFillPlusCircle } from "react-icons/ai";
 
 const Movies = () => {
+  const dispatch = useDispatch();
+
   const [data, setData] = useState<any>(null);
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -57,8 +62,19 @@ const Movies = () => {
                 loader={<Spinner />}
               >
                 {data?.results?.map((item: any, index: any) => {
-                  if (item.media_type === "person") return;
-                  return <MovieCard key={index} data={item} />;
+                  return (
+                    <>
+                      <MovieCard key={index} data={item} />
+                      <span className="watchButton">
+                        <button
+                          className="watchList"
+                          onClick={() => dispatch(addMovieToWatchList(item))}
+                        >
+                          <AiFillPlusCircle />
+                        </button>
+                      </span>
+                    </>
+                  );
                 })}
               </InfiniteScroll>
             ) : (
