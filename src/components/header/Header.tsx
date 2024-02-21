@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import "./style.scss";
-
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import logo from "../../assets/logo.png";
 
@@ -13,34 +10,13 @@ const Header = () => {
   const [show, setShow] = useState("top");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [query, setQuery] = useState<any>("");
-  const [showSearch, setShowSearch] = useState<any>("");
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-  // const handleNavigation = () => {
-  //   navigate("/watchlist");
-  //   setMobileMenu(false);
-  // };
 
-  const openSearch = () => {
-    setMobileMenu(false);
-    setShowSearch(true);
-  };
-  const openMobileMenu = () => {
-    setMobileMenu(true);
-    setShowSearch(false);
-  };
-  const handleSearchQuery = (event: any) => {
-    if (event.key === "Enter" && query?.length > 0) {
-      navigate(`/search/${query}`);
-      setTimeout(() => {
-        setShowSearch(false);
-      }, 1000);
-    }
-  };
   const controlNavbar = () => {
     if (window.scrollY > 200) {
       if (window.scrollY > lastScrollY && !mobileMenu) {
@@ -53,58 +29,46 @@ const Header = () => {
     }
     setLastScrollY(window.scrollY);
   };
+
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
     return () => {
       window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY]);
+
+  const openMobileMenu = () => {
+    setMobileMenu(true);
+  };
+
+  const navigationHandler = () => {
+    navigate("/watchlist");
+
+    setMobileMenu(false);
+  };
+
   return (
     <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
       <ContentWrapper>
-        <div className="logo">
-          <Link to="/">
-            <img src={logo} alt="logo" />
-          </Link>
+        <div className="logo" onClick={() => navigate("/")}>
+          <img src={logo} alt="" />
         </div>
         <ul className="menuItems">
-          <Link to="/watchlist">
-            {" "}
-            <li className="menuItem">Watch List</li>
-          </Link>
+          <li className="menuItem" onClick={() => navigationHandler()}>
+            Watch List
+          </li>
+
+          <li className="menuItem"></li>
         </ul>
+
         <div className="mobileMenuItems">
-          <HiOutlineSearch onClick={openSearch} />
           {mobileMenu ? (
-            <VscChromeClose
-              onClick={() => {
-                setMobileMenu(false);
-              }}
-            />
+            <VscChromeClose onClick={() => setMobileMenu(false)} />
           ) : (
             <SlMenu onClick={openMobileMenu} />
           )}
         </div>
       </ContentWrapper>
-      {showSearch && (
-        <div className="searchBar">
-          <ContentWrapper>
-            <div className="searchInput">
-              <input
-                onKeyUp={handleSearchQuery}
-                onChange={(e) => setQuery(e?.target?.value)}
-                type="text"
-                placeholder="Search Movie....."
-              />
-              <VscChromeClose
-                onClick={() => {
-                  setShowSearch(false);
-                }}
-              />
-            </div>
-          </ContentWrapper>
-        </div>
-      )}
     </header>
   );
 };

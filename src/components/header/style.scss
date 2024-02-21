@@ -1,4 +1,11 @@
 @import "../../mixins.scss";
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
 .header {
   position: fixed;
   transform: translateY(0);
