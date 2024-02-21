@@ -90,11 +90,6 @@ const Movies = () => {
   return (
     <div className="explorePage">
       <ContentWrapper>
-        {/* <div className="pageHeader">
-          <div className="pageTitle">
-            <h2>Movies</h2>
-          </div>
-        </div> */}
         <div className="calendarWrap">
           <input
             value={`${dayjs(startDate).format("YYYY-MM-DD")} To ${dayjs(

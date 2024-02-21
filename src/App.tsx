@@ -3,15 +3,13 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getData } from "./utils/api";
 import { useSelector, useDispatch } from "react-redux";
 import { getApiConfiguration } from "./store/homeSlice";
-
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-// import Home from "./pages/home/Home";
 import Details from "./pages/details/Details";
-import SearchList from "./pages/search-result/SearchList";
 import Movies from "./pages/movies/Movies";
 import WatchList from "./pages/watch-list/WatchList";
 import PageNotFoud from "./pages/404/PageNotFoud";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -33,12 +31,10 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<Navigate to="/movies" />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movie/:id" element={<Details />} />
         <Route path="/watchlist" element={<WatchList />} />
-        <Route path="/search/:query" element={<SearchList />} />
         <Route path="*" element={<PageNotFoud />} />
       </Routes>
       <Footer />
