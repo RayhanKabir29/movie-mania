@@ -85,10 +85,16 @@
   }
   .watchButton {
     position: absolute;
-    left: 180px;
-    bottom: 25px;
+    right: 0px;
+    top: 0px;
+
     .watchList {
+      padding: 1px;
+      line-height: 50%;
       cursor: pointer;
+      border-radius: 50%;
+      font-size: 22px;
+      color: var(--pink);
     }
   }
 }
