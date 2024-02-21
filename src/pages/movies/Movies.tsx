@@ -1,67 +1,142 @@
-/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import "./style.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import { getData } from "../../utils/api";
 import Spinner from "../../components/spinner/Spinner";
 import MovieCard from "../../components/movieCard/MovieCard";
-
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRangePicker } from "react-date-range";
+import dayjs from "dayjs";
 const Movies = () => {
-  const [data, setData] = useState<any>(null);
-  const [pageNum, setPageNum] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const initialDate = new Date();
+  const [refetch, setRefetch] = useState<boolean>(false);
 
-  const fetchInitialData = () => {
-    setLoading(true);
-    getData(`discover/movie`).then((res: any) => {
-      setData(res);
-      setPageNum((prev) => prev + 1);
-      setLoading(false);
+  const formatedDate = dayjs(initialDate).format("YYYY-MM-DD");
+  const prevFormatedDate = dayjs(initialDate)
+    .subtract(60, "day")
+    .format("YYYY-MM-DD");
+
+  const [data, setData] = useState<any>([]);
+  const [startDate, setStartDate] = useState<any>(prevFormatedDate);
+  const [endDate, setEndDate] = useState<any>(formatedDate);
+  const [pageNum, setPageNum] = useState<number>(1);
+  const [nextPage, setNextPage] = useState(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  interface IItem {
+    title: string;
+    release_date: string;
+    vote_average: number;
+  }
+
+  const fetchNextPageData = () => {
+    console.log("after handle clikc", nextPage);
+    getData(
+      `discover/movie?page=${nextPage}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}`
+    ).then((res: any) => {
+      setData((prevData: any) => [...prevData, ...res.results]);
+      if (res.page !== res.total_pages) {
+        setNextPage(pageNum + 1);
+        setPageNum(res.page);
+        setRefetch(true);
+      }
     });
   };
+
+  const loadMoreData = () => {
+    fetchNextPageData();
+  };
+
   useEffect(() => {
-    fetchInitialData();
+    fetchNextPageData();
   }, []);
-  const fetchNextPageData = () => {
-    getData(`discover/movie`).then((res: any) => {
-      if (data?.results) {
-        setData({
-          ...data,
-          results: [...data?.results, ...res.results],
-        });
-      } else {
-        setData(res);
-      }
-      setPageNum((prev) => prev + 1);
-    });
+
+  const handleSelect = (date: any) => {
+    setData([]);
+    setPageNum(1);
+    setNextPage(1);
+    fetchNextPageData();
+    setStartDate(date.selection.startDate);
+    setEndDate(date.selection.endDate);
+  };
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: "selection",
+  };
+  const refOne = useRef<any>(null);
+
+  useEffect(() => {
+    document.addEventListener("keydown", hideOnEscape, true);
+    document.addEventListener("click", hideOnClickOutside, true);
+  }, []);
+
+  const hideOnEscape = (e: any) => {
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
+  };
+
+  const hideOnClickOutside = (e: any) => {
+    if (refOne.current && !refOne.current.contains(e.target)) {
+      setOpen(false);
+    }
   };
 
   return (
     <div className="explorePage">
       <ContentWrapper>
-        <div className="pageHeader">
+        {/* <div className="pageHeader">
           <div className="pageTitle">
             <h2>Movies</h2>
           </div>
+        </div> */}
+        <div className="calendarWrap">
+          <input
+            value={`${dayjs(startDate).format("YYYY-MM-DD")} To ${dayjs(
+              endDate
+            ).format("YYYY-MM-DD")}`}
+            readOnly
+            className="inputBox"
+            onClick={() => setOpen((open) => !open)}
+          />
+          <div ref={refOne}>
+            {open && (
+              <DateRangePicker
+                onChange={handleSelect}
+                editableDateInputs={true}
+                moveRangeOnFirstSelection={false}
+                ranges={[selectionRange]}
+                direction="horizontal"
+                className="calendarElement"
+              />
+            )}
+          </div>
         </div>
+        <div className="filters"></div>
         {loading && <Spinner initial={true} />}
         {!loading && (
           <>
-            {data?.results?.length > 0 ? (
+            {data?.length > 0 ? (
               <InfiniteScroll
                 className="content"
-                dataLength={data?.results?.length || []}
-                next={fetchNextPageData}
-                hasMore={pageNum <= data?.total_pages}
+                dataLength={data?.length}
+                next={loadMoreData}
+                hasMore={refetch}
                 loader={<Spinner />}
               >
-                {data?.results?.map((item: any, index: any) => {
+                {data?.map((item: IItem, index: number) => {
                   return <MovieCard key={index} data={item} />;
                 })}
               </InfiniteScroll>
             ) : (
-              <span className="resultNotFound">Sorry, Results not found!</span>
+              <span className="resultNotFound">
+                Sorry, Seems Like No Movie There
+              </span>
             )}
           </>
         )}

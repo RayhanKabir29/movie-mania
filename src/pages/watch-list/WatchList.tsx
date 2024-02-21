@@ -7,7 +7,7 @@ import MovieCard from "../../components/movieCard/MovieCard";
 const WatchList = () => {
   const watcheListMovies = useSelector((state: any) => state.movie.watchList);
   console.log("Watch List =>", watcheListMovies);
-
+  
   return (
     <div className="explorePage">
       <ContentWrapper>
@@ -17,17 +17,15 @@ const WatchList = () => {
           </div>
         </div>
 
-        {watcheListMovies?.length > 0 ? (
-          watcheListMovies?.map((movieItem: any, index: any) => {
-            return (
-              <div className="content">
-                <MovieCard key={index} data={movieItem} />
-              </div>
-            );
-          })
-        ) : (
-          <span className="resultNotFound">Sorry, Results not found!</span>
-        )}
+        <div className="content">
+          {watcheListMovies?.length > 0 ? (
+            watcheListMovies?.map((movieItem: any, index: any) => {
+              return <MovieCard key={index} data={movieItem} />;
+            })
+          ) : (
+            <span className="resultNotFound">Sorry, Results not found!</span>
+          )}
+        </div>
       </ContentWrapper>
     </div>
   );

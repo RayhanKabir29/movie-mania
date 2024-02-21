@@ -9,9 +9,9 @@ import Footer from "./components/footer/Footer";
 // import Home from "./pages/home/Home";
 import Details from "./pages/details/Details";
 import SearchList from "./pages/search-result/SearchList";
-import PageNotFoud from "./pages/404/PageNotFoud";
 import Movies from "./pages/movies/Movies";
 import WatchList from "./pages/watch-list/WatchList";
+import PageNotFoud from "./pages/404/PageNotFoud";
 
 function App() {
   const dispatch = useDispatch();
