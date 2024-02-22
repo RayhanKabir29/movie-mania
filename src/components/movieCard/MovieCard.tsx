@@ -29,7 +29,7 @@ const MovieCard = ({ data }: any) => {
           className="textBlock"
           onClick={() => navigate(`/movie/${data?.id}`)}
         >
-          <span className="title">{data.title}</span>
+          <span className="title">{data?.title}</span>
           <span className="date">
             {dayjs(data?.release_date).format("MMM D, YYYY")}
           </span>

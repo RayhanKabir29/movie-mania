@@ -23,7 +23,7 @@ const Movies = () => {
   const [startDate, setStartDate] = useState<any>(prevFormatedDate);
   const [endDate, setEndDate] = useState<any>(formatedDate);
   const [pageNum, setPageNum] = useState<number>(1);
-  const [nextPage, setNextPage] = useState(1);
+  const [nextPage, setNextPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   interface IItem {
@@ -110,7 +110,7 @@ const Movies = () => {
           </div>
         </div>
         <div className="filters"></div>
-        {loading && <Spinner initial={true} />}
+
         {!loading && (
           <>
             {data?.length > 0 ? (
