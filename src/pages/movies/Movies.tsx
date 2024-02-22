@@ -33,7 +33,6 @@ const Movies = () => {
   }
 
   const fetchNextPageData = () => {
-    console.log("after handle clikc", nextPage);
     getData(
       `discover/movie?page=${nextPage}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}`
     ).then((res: any) => {
@@ -52,15 +51,14 @@ const Movies = () => {
 
   useEffect(() => {
     fetchNextPageData();
-  }, []);
+  }, [startDate, endDate]);
 
   const handleSelect = (date: any) => {
     setData([]);
-    setPageNum(1);
-    setNextPage(1);
-    fetchNextPageData();
     setStartDate(date.selection.startDate);
     setEndDate(date.selection.endDate);
+    setPageNum(1);
+    setNextPage(1);
   };
 
   const selectionRange = {
@@ -86,15 +84,9 @@ const Movies = () => {
       setOpen(false);
     }
   };
-
   return (
     <div className="explorePage">
       <ContentWrapper>
-        {/* <div className="pageHeader">
-          <div className="pageTitle">
-            <h2>Movies</h2>
-          </div>
-        </div> */}
         <div className="calendarWrap">
           <input
             value={`${dayjs(startDate).format("YYYY-MM-DD")} To ${dayjs(

@@ -8,6 +8,7 @@ import CircleRating from "../circleRating/CirlcleRating";
 import { addMovieToWatchList } from "../../store/movieWatchListSlice";
 import { AiFillPlusCircle } from "react-icons/ai";
 const MovieCard = ({ data }: any) => {
+  console.log("Data =>", data);
   const location = useLocation();
   const dispatch = useDispatch();
   const { url } = useSelector((state: any) => state.home);
