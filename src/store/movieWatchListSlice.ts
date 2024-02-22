@@ -1,4 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+interface IMovie {
+  title?: string;
+  id?: number;
+  overview?: string;
+  release_dat?: string;
+  vote_average: number;
+}
+
 const movieSlice = createSlice({
   name: "movies",
   initialState: {
@@ -6,7 +14,12 @@ const movieSlice = createSlice({
   },
   reducers: {
     addMovieToWatchList(state: any, action) {
-      state.watchList.push(action.payload);
+      const match = state?.watchList?.filter(
+        (item: IMovie) => item?.id === action?.payload?.id
+      );
+      if (!match?.length) {
+        state.watchList.push(action.payload);
+      }
     },
   },
 });
