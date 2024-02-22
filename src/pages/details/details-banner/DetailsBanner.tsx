@@ -3,27 +3,32 @@ import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import useFetch from "../../../hooks/useFetch";
-// import Genres from "../../../components/genres/Genres";
 import Img from "../../../components/lazyLoad/Img";
 import PosterFallback from "../../../assets/no-poster.png";
 import "./style.scss";
-// import { BsTypeH2 } from "react-icons/bs";
 import CircleRating from "../../../components/circleRating/CirlcleRating.js";
+interface IDirectorName {
+  name?: string[];
+}
+interface IWriter {
+  name?: string[];
+}
+interface IProducerName {
+  name?: string[];
+}
 
 const DetailsBanner = ({ crew }: any) => {
   const { id } = useParams<any>();
   const { data, loading } = useFetch(`movie/${id}`);
   const { url } = useSelector((state: any) => state.home);
-
-  //   const toHoursAndMinutes = (totalMinutes) => {
-  //     const hours = Math.floor(totalMinutes / 60);
-  //     const minutes = totalMinutes % 60;
-  //     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
-  //   };
-  const director = crew?.filter((f: any) => f.job === "Director");
+  const director = crew?.filter(
+    (filterCrew: any) => filterCrew.job === "Director"
+  );
   const writer = crew?.filter(
-    (f: any) =>
-      f?.job === "Screenplay" || f?.job === "Story" || f?.job === "Writer"
+    (filterCrew: any) =>
+      filterCrew?.job === "Screenplay" ||
+      filterCrew?.job === "Story" ||
+      filterCrew?.job === "Writer"
   );
   const producer = crew?.filter((f: any) => f.job === "Producer");
   return (
@@ -72,13 +77,16 @@ const DetailsBanner = ({ crew }: any) => {
                   <div className="info">
                     <span className="text-bold">
                       Director:{" "}
-                      {director?.map((d: any, i: any) => {
-                        return (
-                          <span key={i}>
-                            {d?.name} {director?.length - 1 !== i && ", "}
-                          </span>
-                        );
-                      })}
+                      {director?.map(
+                        (directorData: IDirectorName, i: number) => {
+                          return (
+                            <span key={i}>
+                              {directorData?.name}{" "}
+                              {director?.length - 1 !== i && ", "}
+                            </span>
+                          );
+                        }
+                      )}
                     </span>
                   </div>
                 )}
@@ -86,10 +94,11 @@ const DetailsBanner = ({ crew }: any) => {
                   <div className="info">
                     <span className="text-bold">
                       Writer:{" "}
-                      {writer?.map((w: any, i: any) => {
+                      {writer?.map((writerData: IWriter, i: number) => {
                         return (
                           <span key={i}>
-                            {w?.name} {writer?.length - 1 !== i && ", "}
+                            {writerData?.name}{" "}
+                            {writer?.length - 1 !== i && ", "}
                           </span>
                         );
                       })}
@@ -100,13 +109,16 @@ const DetailsBanner = ({ crew }: any) => {
                   <div className="info">
                     <span className="text-bold">
                       Producer:{" "}
-                      {producer?.map((p: any, i: any) => {
-                        return (
-                          <span key={i}>
-                            {p?.name} {producer?.length - 1 !== i && ", "}
-                          </span>
-                        );
-                      })}
+                      {producer?.map(
+                        (producerData: IProducerName, i: number) => {
+                          return (
+                            <span key={i}>
+                              {producerData?.name}{" "}
+                              {producer?.length - 1 !== i && ", "}
+                            </span>
+                          );
+                        }
+                      )}
                     </span>
                   </div>
                 )}

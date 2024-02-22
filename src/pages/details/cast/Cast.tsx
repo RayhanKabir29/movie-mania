@@ -4,6 +4,13 @@ import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import avatar from "../../../assets/avatar.png";
 import Img from "../../../components/lazyLoad/Img";
 
+interface ICast {
+  profile_path?: string;
+  id?: number;
+  name?: string;
+  character?: string;
+}
+
 const Cast = ({ data, loading }: any) => {
   const { url } = useSelector((state: any) => state.home);
 
@@ -22,7 +29,7 @@ const Cast = ({ data, loading }: any) => {
         <div className="sectionHeading">Cast</div>
         {!loading ? (
           <div className="listItems">
-            {data?.map((item: any) => {
+            {data?.map((item: ICast) => {
               const castImg = item?.profile_path
                 ? url?.profile + item?.profile_path
                 : avatar;
