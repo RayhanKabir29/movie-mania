@@ -54,7 +54,7 @@ const Header = () => {
           <img src={logo} alt="" />
         </div>
         <ul className="menuItems">
-          <li className="menuItem" onClick={() => navigate("/movies")}>
+          <li className="menuItem" onClick={() => navigate("/movie")}>
             Movies
           </li>
           <li className="menuItem" onClick={() => navigationHandler()}>

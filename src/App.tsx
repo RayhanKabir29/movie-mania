@@ -34,7 +34,7 @@ function App() {
       <Routes>
       <Route path="/home" element={<Home/>} />
         <Route path="/" element={<Navigate to="/movies" />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/movie" element={<Movies />} />
         <Route path="/movie/:id" element={<Details />} />
         <Route path="/watchlist" element={<WatchList />} />
         <Route path="*" element={<PageNotFoud />} />
