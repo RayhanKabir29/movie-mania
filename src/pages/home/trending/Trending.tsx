@@ -1,19 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
 import useFetch from "../../../hooks/useFetch";
 import Carousel from "../../../components/carousel/Carousel";
 
 const Trending = () => {
-  const [trendingMovies, setTrendingMovies] = useState<any>("day");
-  const { data, loading } = useFetch(`trending/movie/${trendingMovies}
-  `);
+  const { data, loading } = useFetch(`movie/now_playing`);
   return (
     <div className="carouselSection">
-      <Carousel
-        title="Trending Movies"
-        data={data?.results}
-        loading={loading}
-      />
+      <Carousel title="Now Playing" data={data?.results} loading={loading} />
     </div>
   );
 };

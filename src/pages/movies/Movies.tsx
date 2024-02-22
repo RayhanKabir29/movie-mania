@@ -22,7 +22,6 @@ const Movies = () => {
   const [endDate, setEndDate] = useState<any>(formatedDate);
   const [pageNum, setPageNum] = useState<number>(1);
   const [nextPage, setNextPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
   const [refetch, setRefetch] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   interface IItem {
@@ -110,25 +109,25 @@ const Movies = () => {
         </div>
         <div className="filters"></div>
 
-        {!loading && (
-          <>
-            {data?.length > 0 ? (
-              <InfiniteScroll
-                className="content"
-                dataLength={data?.length}
-                next={loadMoreData}
-                hasMore={refetch}
-                loader={<Spinner />}
-              >
-                {data?.map((item: IItem, index: number) => {
-                  return <MovieCard key={index} data={item} />;
-                })}
-              </InfiniteScroll>
-            ) : (
-              <span> {loading && <Spinner initial={true} />}</span>
-            )}
-          </>
-        )}
+        <>
+          {data?.length > 0 ? (
+            <InfiniteScroll
+              className="content"
+              dataLength={data?.length}
+              next={loadMoreData}
+              hasMore={refetch}
+              loader={<Spinner />}
+            >
+              {data?.map((item: IItem, index: number) => {
+                return <MovieCard key={index} data={item} />;
+              })}
+            </InfiniteScroll>
+          ) : (
+            <span>
+              <Spinner initial={true} />
+            </span>
+          )}
+        </>
       </ContentWrapper>
     </div>
   );
