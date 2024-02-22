@@ -12,8 +12,6 @@ import { DateRangePicker } from "react-date-range";
 import dayjs from "dayjs";
 const Movies = () => {
   const initialDate = new Date();
-  const [refetch, setRefetch] = useState<boolean>(false);
-
   const formatedDate = dayjs(initialDate).format("YYYY-MM-DD");
   const prevFormatedDate = dayjs(initialDate)
     .subtract(60, "day")
@@ -25,6 +23,7 @@ const Movies = () => {
   const [pageNum, setPageNum] = useState<number>(1);
   const [nextPage, setNextPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [refetch, setRefetch] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   interface IItem {
     title: string;

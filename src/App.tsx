@@ -14,7 +14,7 @@ import Home from "./pages/home/Home";
 function App() {
   const dispatch = useDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { url } = useSelector((state: any) => state.home);
+
   useEffect(() => {
     fetchApiConfig();
   }, []);
