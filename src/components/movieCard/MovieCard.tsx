@@ -34,7 +34,7 @@ const MovieCard = ({ data }: any) => {
             {dayjs(data?.release_date).format("MMM D, YYYY")}
           </span>
         </div>
-        {location.pathname === "/movies" && (
+        {location.pathname === "/movie" && (
           <span className="watchButton">
             <button
               className="watchList"
