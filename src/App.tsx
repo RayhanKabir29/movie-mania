@@ -9,6 +9,7 @@ import Details from "./pages/details/Details";
 import Movies from "./pages/movies/Movies";
 import WatchList from "./pages/watch-list/WatchList";
 import PageNotFoud from "./pages/404/PageNotFoud";
+import Home from "./pages/home/Home";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
+      <Route path="/home" element={<Home/>} />
         <Route path="/" element={<Navigate to="/movies" />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movie/:id" element={<Details />} />
